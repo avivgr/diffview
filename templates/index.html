@@ -34,7 +34,7 @@
         if (authResult && !authResult.error) {
           // Access token has been successfully retrieved, requests can be sent to the API.
           gapi.client.load('drive', 'v2', function() {
-              printFile('0ByeqPocLstLbYnlTNjQzdHZ1d0U');
+              showFile('0ByeqPocLstLbYnlTNjQzdHZ1d0U');
           });
         } else {
           // No access token could be retrieved, show the button to start the authorization flow.
@@ -47,7 +47,7 @@
         }
       }
 
-      function printFile(fileId) {
+      function showFile(fileId) {
         var request = gapi.client.drive.files.get({
             'fileId': fileId
         });
