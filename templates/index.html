@@ -59,6 +59,9 @@
             console.log('Title: ' + resp.title);
             console.log('Description: ' + resp.description);
             console.log('MIME type: ' + resp.mimeType);
+            downloadFile(resp, function(data) {
+              $("#file").text(data)
+            });
           } else if (resp.error.code == 401) {
             // Access token might have expired.
             checkAuth();
@@ -89,6 +92,6 @@
   </head>
   <body>
     <input type="button" id="authorizeButton" style="display: none" value="Authorize" />
-    <div id="file"></div>
+    <pre id="file"></pre>
   </body>
 </html>
