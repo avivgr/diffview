@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request,render_template
+import json
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -14,12 +15,14 @@ def hello():
 
 @app.route('/')
 def index():
-	return render_template('index.html')
+	return render_template('index.html', fileId = '0ByeqPocLstLbYnlTNjQzdHZ1d0U')
 
 @app.route('/open/', methods=['POST', 'GET'])
 def open():
-    """Return a friendly HTTP greeting."""
-    return request.data
+    state_data = json.loads(request.args.get('state', '{}'))
+    action = state_data['action']
+    ids = map(str, state_data.get('ids', []))
+    return render_template('index.html', fileId = ids[0])
 
 @app.errorhandler(404)
 def page_not_found(e):
