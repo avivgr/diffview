@@ -17,7 +17,11 @@ function toDiff(data)
 	var state = STATE_COVER_LETTER;
 	var out = "";
 	for (var i = 0; i < lines.length; i++) {
-		var line = HtmlEscape(lines[i].substring(0, lines[i].length-1));
+		var line = lines[i];
+		var lastChar = line.charAt(line.length - 1);
+		if(lastChar == "\r" || lastChar == "\n")
+			line = line.substring(0, line.length-1);
+		line = HtmlEscape(line);
 		/* Change state */
 		switch(state){
 			case STATE_COVER_LETTER:
