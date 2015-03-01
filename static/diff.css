@@ -1,0 +1,43 @@
+body {
+	font-family: "Lucida Console", Monaco, monospace;
+    background: black;
+    color: white;
+}
+.diffline { 
+	color: #00CC99;
+}
+.targetfile { 
+	color: #00CC99;
+}
+.sourcefile { 
+	color: #00CC99;
+}
+.addline { 
+	color: #00FF33;
+}
+.delline { 
+	color: #FF0000;
+}
+.hunkinfo {
+	color: #FFFF00;
+}
+.funcinfo {
+	color: #00CCFF;
+}
+.gerritcid {
+	color: #6699FF;
+	font-weight: bold;
+}
+.sobline {
+	color: #6699FF;
+	font-weight: bold;
+}
+.headerline {
+	color: #FFFFCC;
+}
+.badspace {
+	background: red;
+}
+.diff, .diff span, .diff tr, .diff td { 
+	white-space: pre; 
+}

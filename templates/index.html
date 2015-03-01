@@ -3,12 +3,16 @@
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="/static/diff.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="/static/diff.js"></script>
     <script type="text/javascript">
       var CLIENT_ID = '334321650842-6gahq24g6pn5i2o5p8qq8ldosdif098p.apps.googleusercontent.com';
       var SCOPES = ['https://www.googleapis.com/auth/drive',
                     'https://www.googleapis.com/auth/drive.file',
-                    'profile'];
+                    'https://www.googleapis.com/auth/drive.install',
+                    'profile',
+                    'email'];
 
       /**
        * Called when the client library is loaded to start the auth flow.
@@ -60,7 +64,7 @@
             console.log('Description: ' + resp.description);
             console.log('MIME type: ' + resp.mimeType);
             downloadFile(resp, function(data) {
-              $("#file").text(data)
+               $("#file").html(toDiff(data));
             });
           } else if (resp.error.code == 401) {
             // Access token might have expired.
@@ -92,6 +96,6 @@
   </head>
   <body>
     <input type="button" id="authorizeButton" style="display: none" value="Authorize" />
-    <pre id="file"></pre>
+    <div id="file" class="diff"></div>
   </body>
 </html>
