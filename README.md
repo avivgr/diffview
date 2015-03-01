@@ -1,79 +1,64 @@
-## Python Flask Skeleton for Google App Engine
+## DiffView Google Drive Application
 
-A skeleton for building Python applications on Google App Engine with the
-[Flask micro framework](http://flask.pocoo.org).
+This web application allows viewing formatted diff/patch files directly from your Gmail or Google Drive.
 
-See our other [Google Cloud Platform github
+A hosted version is available [here](http://snappy-lattice-846.appspot.com).
+
+## Implementation Details
+* Apps is hosted using Google App Engine. It uses python backend, but there is very little going on on the server side.
+
+* The user's files are never copied to the server. Patches are sent from Google server to the client browser for rendering.
+
+* A small JS library does diff color formatting on the data, locally on the browser.
+ 
+See [Google Cloud Platform github
 repos](https://github.com/GoogleCloudPlatform) for sample applications and
 scaffolding for other python frameworks and use cases.
 
+Also see [Google Drive SDK - Open Files](https://developers.google.com/drive/web/integrate-open) for details about
+the Drive SDK, how to write apps for Drive and how to integrate open files.
+
 ## Run Locally
-1. Install the [App Engine Python SDK](https://developers.google.com/appengine/downloads).
-See the README file for directions. You'll need python 2.7 and [pip 1.4 or later](http://www.pip-installer.org/en/latest/installing.html) installed too.
 
-2. Clone this repo with
+* I could not figure out how to fetch Google Drive files when using a server running locally. I do not think it is possible, since when configuring the Drive API, one has to supply a real URI, that is specifically not localhost.
 
-   ```
-   git clone https://github.com/GoogleCloudPlatform/appengine-python-flask-skeleton.git
-   ```
-3. Install dependencies in the project's lib directory.
-   Note: App Engine can only import libraries from inside your project directory.
+* To test the JavaScript code that colors the diff files, you can use a skeleton html file like:
+	<html xmlns="http://www.w3.org/1999/xhtml">
+	    <head>
+	        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	        <title>Test</title>
+	        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+	        <link rel="stylesheet" type="text/css" href="diff.css" />
+	        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+	        <script src="diff.js"></script>
+	        <script type="text/javascript">
+	        $.ajax({
+	            url: "sample.patch",
+	            beforeSend: function( xhr ) {
+	                xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+	            }
+	        })
+	        .done(function( data ) {
+	              $("#file").html(toDiff(data));
+	        });
+	        </script>
+	        <style>
+	        
+	        </style>
+	    </head>
+	    <body>
+	        <div id="file" class="diff"></div>
+	    </body>
+	</html>
 
-   ```
-   cd appengine-python-flask-skeleton
-   pip install -r requirements.txt -t lib
-   ```
-4. Run this project locally from the command line:
-
-   ```
-   dev_appserver.py .
-   ```
-
-Visit the application [http://localhost:8080](http://localhost:8080)
-
-See [the development server documentation](https://developers.google.com/appengine/docs/python/tools/devserver)
-for options when running dev_appserver.
+Please place a sample.patch to test rendering. 
 
 ## Deploy
 To deploy the application:
-
-1. Use the [Admin Console](https://appengine.google.com) to create a
-   project/app id. (App id and project id are identical)
-1. [Deploy the
-   application](https://developers.google.com/appengine/docs/python/tools/uploadinganapp) with
-
-   ```
-   appcfg.py -A <your-project-id> --oauth2 update .
-   ```
-1. Congratulations!  Your application is now live at your-app-id.appspot.com
-
-## Next Steps
-This skeleton includes `TODO` markers to help you find basic areas you will want
-to customize.
-
-### Relational Databases and Datastore
-To add persistence to your models, use
-[NDB](https://developers.google.com/appengine/docs/python/ndb/) for
-scale.  Consider
-[CloudSQL](https://developers.google.com/appengine/docs/python/cloud-sql)
-if you need a relational database.
-
-### Installing Libraries
-See the [Third party
-libraries](https://developers.google.com/appengine/docs/python/tools/libraries27)
-page for libraries that are already included in the SDK.  To include SDK
-libraries, add them in your app.yaml file. Other than libraries included in
-the SDK, only pure python libraries may be added to an App Engine project.
-
-### Feedback
-Star this repo if you found it useful. Use the github issue tracker to give
-feedback on this repo.
-
-## Contributing changes
-See [CONTRIB.md](CONTRIB.md)
 
 ## Licensing
 See [LICENSE](LICENSE)
 
 ## Author
-Logan Henriquez and Johan Euphrosine
+Aviv Greenberg
