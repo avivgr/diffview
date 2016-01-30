@@ -20,9 +20,10 @@ the Drive SDK, how to write apps for Drive and how to integrate open files.
 
 ## Run Locally
 
-* I could not figure out how to fetch Google Drive files when using a server running locally. I do not think it is possible, since when configuring the Drive API, one has to supply a real URI, that is specifically not localhost.
+* I could not figure out how to fetch Google Drive files when running a local web server. I do not think it is possible, since the Drive API configuration requires a real URI, and cannot route to localhost.
 
 * To test the JavaScript code that colors the diff files, you can use a skeleton html file like:
+```
 	<html xmlns="http://www.w3.org/1999/xhtml">
 	    <head>
 	        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -51,7 +52,7 @@ the Drive SDK, how to write apps for Drive and how to integrate open files.
 	        <div id="file" class="diff"></div>
 	    </body>
 	</html>
-
+```
 Please place a sample.patch to test rendering. 
 
 ## Deploy
